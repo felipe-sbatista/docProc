@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface TipoArquivoRepository extends JpaRepository<TipoArquivo, Long> {
     List<TipoArquivo> findByAtivoTrue();
+
+    TipoArquivo findByFormato(String formato);
 }

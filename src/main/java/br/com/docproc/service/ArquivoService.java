@@ -39,10 +39,16 @@ public class ArquivoService {
         try {
             checkTipoArquivo(tipo);
             checkCapturaArquivo(captura);
+
             Arquivo arquivo = new Arquivo();
             arquivo.setDataIncersao(new Date());
             arquivo.setNomeArquivo(file.getOriginalFilename());
             arquivo.setArquivo(file.getBytes());
+
+            TipoArquivo tipoArq = new TipoArquivo();
+            tipoArq.setFormato(file.getContentType());
+            arquivo.setTipoArquivo(tipoArq);
+
             arquivoRepository.save(arquivo);
         } catch (EnvioException e) {
             e.printStackTrace();
@@ -91,5 +97,9 @@ public class ArquivoService {
             }
         });
         return arquivos;
+    }
+
+    public Arquivo findArquivo(String nome){
+        return arquivoRepository.findByNomeArquivo();
     }
 }
