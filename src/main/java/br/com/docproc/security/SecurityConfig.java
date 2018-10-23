@@ -18,12 +18,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/listarArquivos").hasRole("user")
-                .antMatchers(HttpMethod.POST, "/enviarArquivo").hasRole("user")
-                .antMatchers(HttpMethod.POST, "/setConfiguracoes").hasRole("admin")
-                .antMatchers(HttpMethod.GET, "/baixarArquivo").hasRole("admin")
+                .antMatchers(HttpMethod.POST, "/listarArquivos").permitAll()
+                .antMatchers(HttpMethod.POST, "/enviarArquivo").permitAll()
+                .antMatchers(HttpMethod.POST, "/setConfiguracoes").hasRole("ADMIN")
+              //  .antMatchers(HttpMethod.GET, "/baixarArquivo").hasRole("ADMIN")
 
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
     }
 
 

@@ -8,7 +8,7 @@ import java.util.Date;
 public class Arquivo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private Date dataIncersao;
@@ -82,5 +82,19 @@ public class Arquivo {
 
     public void setTipoCaptura(TipoCaptura tipoCaptura) {
         this.tipoCaptura = tipoCaptura;
+    }
+
+
+    public String getNomeArquivoSemExtensao(){
+        String nome[] = this.nomeArquivo.split("\\.");
+        // se o arquivo nao esta com a extensao no final do nome
+        if(!nome[nome.length - 1].equals(this.tipoArquivo.getFormato())){
+            return this.nomeArquivo;
+        }
+        String result = "";
+        for(int i = 0;i < nome.length-1; i++){
+            result = result + nome[i];
+        }
+        return result;
     }
 }

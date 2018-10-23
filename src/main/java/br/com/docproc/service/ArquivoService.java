@@ -8,6 +8,7 @@ import br.com.docproc.exception.EnvioException;
 import br.com.docproc.repository.ArquivoRepository;
 import br.com.docproc.repository.TipoArquivoRepository;
 import br.com.docproc.repository.TipoCapturaRepository;
+import br.com.docproc.utils.ProcessadorTexto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ArquivoService {
@@ -34,7 +33,7 @@ public class ArquivoService {
     @Autowired
     private TipoCapturaRepository tipoCapturaRepository;
 
-    public void salvarArquivo(MultipartFile file, String tipo, String captura) throws IOException {
+    public Arquivo salvarArquivo(MultipartFile file, String tipo, String captura) throws IOException {
 
         try {
             checkTipoArquivo(tipo);
@@ -44,15 +43,18 @@ public class ArquivoService {
             arquivo.setDataIncersao(new Date());
             arquivo.setNomeArquivo(file.getOriginalFilename());
             arquivo.setArquivo(file.getBytes());
+            arquivo.setTipoArquivo(tipoArquivoRepository.findByFormato(tipo));
+            arquivo.setTipoCaptura(tipoCapturaRepository.findByFormaCaptura(captura));
 
-            TipoArquivo tipoArq = new TipoArquivo();
-            tipoArq.setFormato(file.getContentType());
-            arquivo.setTipoArquivo(tipoArq);
-
-            arquivoRepository.save(arquivo);
+            ProcessadorTexto processadorTexto = new ProcessadorTexto();
+            List<String>result = processadorTexto.organizarArquivoDocumento(arquivo.getArquivo());
+            Map<String, Integer> map = processadorTexto.processarTexto(result);
+            processadorTexto.generateExcel(arquivo.getNomeArquivoSemExtensao()+".xls", map);
+            return arquivoRepository.save(arquivo);
         } catch (EnvioException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     private void checkCapturaArquivo(String captura) throws EnvioException {
@@ -100,6 +102,7 @@ public class ArquivoService {
     }
 
     public Arquivo findArquivo(String nome){
-        return arquivoRepository.findByNomeArquivo();
+        return arquivoRepository.findByNomeArquivo(nome);
     }
+
 }

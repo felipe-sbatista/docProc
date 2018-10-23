@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 public class MainController {
 
     @Autowired
@@ -24,39 +23,40 @@ public class MainController {
 
 
     @PostMapping(value = "/enviarArquivo")
-    public String envio(
+    public ResponseEntity<Arquivo> envio(
             @RequestParam("file") MultipartFile file,
             @RequestParam("tipo") String tipo,
             @RequestParam("captura") String captura
     ) throws IOException {
 
         //salvar o arquivo
-        service.salvarArquivo(file, tipo, captura);
-        return "";
+        Arquivo result = service.salvarArquivo(file, tipo, captura);
+        return ResponseEntity.ok(result);
     }
 
-    @GetMapping(value = "/listarArquivos")
-    public ResponseEntity<List<Arquivo>> listArquivos(FiltroDTO filtro){
+
+
+
+//    @GetMapping(value = "/baixarArquivo/{nomeArquivo}")
+//    public ResponseEntity<Resource> baixarArquivo(@PathVariable String nomeArquivo){
+//        Arquivo result = service.findArquivo(nomeArquivo);
+//        if(result == null){
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok().contentType(MediaType.parseMediaType(result.getTipoArquivo().getFormato()))
+//                //.header(HttpHeaders.CONTENT_TYPE, "attachment; filename=\"" + result.getNomeArquivo() +"\"")
+//                .header(HttpHeaders.CONTENT_TYPE, result.getNomeArquivo())
+//                .body(new ByteArrayResource(result.getArquivo()));
+//    }
+
+
+    @PostMapping(value = "/listarArquivos")
+    public ResponseEntity<List<Arquivo>> listarArquivos(@RequestBody FiltroDTO filtro){
         List<Arquivo> result = service.findByFiltros(filtro);
         if(result.isEmpty()){
             return  ResponseEntity.notFound().build();
         }
-       // List<>
-        for(Arquivo arquivo: result){
-
-        }
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping(value = "/baixarArquivo/{nomeArquivo}")
-    public ResponseEntity<Resource> baixarArquivo(@PathVariable String nomeArquivo){
-        Arquivo result = service.findArquivo(nomeArquivo);
-        if(result == null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().contentType(MediaType.parseMediaType(result.getTipoArquivo().getFormato()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + result.getNomeArquivo() +"\"")
-                .body(new ByteArrayResource(result.getArquivo()));
-
-    }
 }

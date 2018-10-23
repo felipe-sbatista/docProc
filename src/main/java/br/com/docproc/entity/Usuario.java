@@ -12,7 +12,7 @@ import java.util.List;
 public class Usuario implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String matricula;
@@ -78,5 +78,9 @@ public class Usuario implements UserDetails {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
