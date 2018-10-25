@@ -1,36 +1,20 @@
 package br.com.docproc.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
 public class FiltroDTO {
 
+    @Getter @Setter
     private TipoCaptura tipoCaptura;
 
+    @Getter @Setter
     private TipoArquivo tipoArquivo;
 
+    @Getter @Setter
     private Date dataEnvio;
 
-    public TipoCaptura getTipoCaptura() {
-        return tipoCaptura;
-    }
 
-    public void setTipoCaptura(TipoCaptura tipoCaptura) {
-        this.tipoCaptura = tipoCaptura;
-    }
-
-    public TipoArquivo getTipoArquivo() {
-        return tipoArquivo;
-    }
-
-    public void setTipoArquivo(TipoArquivo tipoArquivo) {
-        this.tipoArquivo = tipoArquivo;
-    }
-
-    public Date getDataEnvio() {
-        return dataEnvio;
-    }
-
-    public void setDataEnvio(Date dataEnvio) {
-        this.dataEnvio = dataEnvio;
-    }
 }

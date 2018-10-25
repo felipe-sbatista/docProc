@@ -2,12 +2,10 @@ package br.com.docproc.controller;
 
 import br.com.docproc.entity.Arquivo;
 import br.com.docproc.entity.FiltroDTO;
-import br.com.docproc.service.ArquivoService;
+import br.com.docproc.entity.Usuario;
+import br.com.docproc.serviceImpl.ArquivoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,44 +17,22 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    private ArquivoService service;
-
+    private ArquivoServiceImpl service;
 
     @PostMapping(value = "/enviarArquivo")
-    public ResponseEntity<Arquivo> envio(
+    public HttpEntity envio(
             @RequestParam("file") MultipartFile file,
             @RequestParam("tipo") String tipo,
-            @RequestParam("captura") String captura
+            @RequestParam("captura") String captura,
+            @RequestBody Usuario usuario
     ) throws IOException {
 
-        //salvar o arquivo
-        Arquivo result = service.salvarArquivo(file, tipo, captura);
-        return ResponseEntity.ok(result);
+        return service.salvarArquivo(file, tipo, captura, usuario);
     }
-
-
-
-
-//    @GetMapping(value = "/baixarArquivo/{nomeArquivo}")
-//    public ResponseEntity<Resource> baixarArquivo(@PathVariable String nomeArquivo){
-//        Arquivo result = service.findArquivo(nomeArquivo);
-//        if(result == null){
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok().contentType(MediaType.parseMediaType(result.getTipoArquivo().getFormato()))
-//                //.header(HttpHeaders.CONTENT_TYPE, "attachment; filename=\"" + result.getNomeArquivo() +"\"")
-//                .header(HttpHeaders.CONTENT_TYPE, result.getNomeArquivo())
-//                .body(new ByteArrayResource(result.getArquivo()));
-//    }
-
 
     @PostMapping(value = "/listarArquivos")
     public ResponseEntity<List<Arquivo>> listarArquivos(@RequestBody FiltroDTO filtro){
-        List<Arquivo> result = service.findByFiltros(filtro);
-        if(result.isEmpty()){
-            return  ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(result);
+        return service.findByFiltros(filtro);
     }
 
 }

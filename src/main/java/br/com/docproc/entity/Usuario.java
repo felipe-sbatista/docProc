@@ -1,86 +1,46 @@
 package br.com.docproc.entity;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 
 @Entity
-public class Usuario implements UserDetails {
+@EqualsAndHashCode
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter @Setter
     private long id;
 
+    @Getter @Setter
     private String matricula;
 
+    @Getter @Setter
     private String password;
 
     @ManyToMany
-    @JoinTable(name="usuario_roles",
+    @JoinTable(name="usuario_tipoCaptura",
             joinColumns = @JoinColumn(name="usuario_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles;
+            inverseJoinColumns = @JoinColumn(name = "tipo_captura_id", referencedColumnName = "id"))
+    @Getter @Setter
+    private List<TipoCaptura> permissoesCaptura;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles;
-    }
 
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
+    @ManyToMany
+    @JoinTable(name="usuario_tipoCaptura",
+            joinColumns = @JoinColumn(name="usuario_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "tipo_arquivo_id", referencedColumnName = "id"))
+    @Getter @Setter
+    private List<TipoArquivo> permissoesArquivo;
 
-    @Override
-    public String getUsername() {
-        return this.matricula;
-    }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

@@ -1,6 +1,9 @@
 package br.com.docproc.entity;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,80 +12,28 @@ public class Arquivo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Setter
     private int id;
 
+    @Getter @Setter
     private Date dataIncersao;
 
+    @Getter @Setter
     private String nomeArquivo;
 
+    @Getter @Setter
     @ManyToOne
     private TipoArquivo tipoArquivo;
 
+    @Getter @Setter
     @ManyToOne
     private TipoCaptura tipoCaptura;
 
+    @Getter @Setter
     @Lob
     private byte[] arquivo;
 
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-
-
-    public Date getDataIncersao() {
-        return dataIncersao;
-    }
-
-    public void setDataIncersao(Date dataIncersao) {
-        this.dataIncersao = dataIncersao;
-    }
-
-
-
-    public byte[] getArquivo() {
-        return arquivo;
-    }
-
-    public void setArquivo(byte[] arquivo) {
-        this.arquivo = arquivo;
-    }
-
-
-
-    public String getNomeArquivo() {
-        return nomeArquivo;
-    }
-
-    public void setNomeArquivo(String nomeArquivo) {
-        this.nomeArquivo = nomeArquivo;
-    }
-
-
-
-    public TipoArquivo getTipoArquivo() {
-        return tipoArquivo;
-    }
-
-    public void setTipoArquivo(TipoArquivo tipoArquivo) {
-        this.tipoArquivo = tipoArquivo;
-    }
-
-
-
-    public TipoCaptura getTipoCaptura() {
-        return tipoCaptura;
-    }
-
-    public void setTipoCaptura(TipoCaptura tipoCaptura) {
-        this.tipoCaptura = tipoCaptura;
-    }
 
 
     public String getNomeArquivoSemExtensao(){

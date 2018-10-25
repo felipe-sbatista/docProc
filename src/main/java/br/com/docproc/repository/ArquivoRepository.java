@@ -12,5 +12,4 @@ public interface ArquivoRepository extends JpaRepository<Arquivo, Long> {
 
     List<Arquivo> findAll(Specification<Arquivo> arquivoSpecification);
 
-    Arquivo findByNomeArquivo(String nome);
 }
