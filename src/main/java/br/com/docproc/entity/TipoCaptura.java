@@ -1,5 +1,6 @@
 package br.com.docproc.entity;
 
+import br.com.docproc.base.AbstractEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,12 +12,12 @@ import javax.persistence.Id;
 
 @Entity
 @EqualsAndHashCode
-public class TipoCaptura {
+public class TipoCaptura extends AbstractEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
-    private int id;
+    private Long id;
 
     @Getter @Setter
     private String formaCaptura;

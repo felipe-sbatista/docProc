@@ -1,25 +1,22 @@
 package br.com.docproc.entity;
 
+import br.com.docproc.base.AbstractEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 
 @Entity
 @EqualsAndHashCode
-public class Usuario {
+public class Usuario extends AbstractEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
-    private long id;
+    private Long id;
 
     @Getter @Setter
     private String matricula;

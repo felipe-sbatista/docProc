@@ -1,6 +1,7 @@
 package br.com.docproc.entity;
 
 
+import br.com.docproc.base.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,13 +9,13 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Arquivo {
+public class Arquivo extends AbstractEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
-    private int id;
+    private Long id;
 
     @Getter @Setter
     private Date dataIncersao;
