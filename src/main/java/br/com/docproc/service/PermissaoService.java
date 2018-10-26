@@ -7,7 +7,5 @@ import java.util.List;
 
 public interface PermissaoService {
 
-    void salvarCapturas(List<TipoCaptura> tiposCaptura);
 
-    void salvarTiposArquivos(List<TipoArquivo> tiposArquivos);
 }

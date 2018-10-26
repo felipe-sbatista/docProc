@@ -14,7 +14,7 @@ import java.util.List;
 public class Usuario extends AbstractEntity<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter @Setter
     private Long id;
 
@@ -33,11 +33,15 @@ public class Usuario extends AbstractEntity<Long> {
 
 
     @ManyToMany
-    @JoinTable(name="usuario_tipoCaptura",
+    @JoinTable(name="usuario_tipoArquivo",
             joinColumns = @JoinColumn(name="usuario_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tipo_arquivo_id", referencedColumnName = "id"))
     @Getter @Setter
     private List<TipoArquivo> permissoesArquivo;
+
+    @ManyToOne
+    @Getter @Setter
+    private Funcao funcao;
 
 
 }

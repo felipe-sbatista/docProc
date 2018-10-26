@@ -1,8 +1,7 @@
 package br.com.docproc.controller;
 
 import br.com.docproc.entity.Arquivo;
-import br.com.docproc.entity.FiltroDTO;
-import br.com.docproc.entity.Usuario;
+import br.com.docproc.dto.FiltroDTO;
 import br.com.docproc.serviceImpl.ArquivoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -24,15 +23,16 @@ public class MainController {
             @RequestParam("file") MultipartFile file,
             @RequestParam("tipo") String tipo,
             @RequestParam("captura") String captura,
-            @RequestBody Usuario usuario
+            @RequestParam ("usuario") String matricula
     ) throws IOException {
 
-        return service.salvarArquivo(file, tipo, captura, usuario);
+        return service.salvarArquivo(file, tipo, captura, matricula);
     }
 
     @PostMapping(value = "/listarArquivos")
     public ResponseEntity<List<Arquivo>> listarArquivos(@RequestBody FiltroDTO filtro){
         return service.findByFiltros(filtro);
     }
+
 
 }

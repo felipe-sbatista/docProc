@@ -15,7 +15,7 @@ import javax.persistence.Id;
 public class TipoCaptura extends AbstractEntity<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter @Setter
     private Long id;
 

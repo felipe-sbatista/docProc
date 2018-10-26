@@ -1,6 +1,6 @@
 package br.com.docproc.teste;
 
-import br.com.docproc.entity.FiltroDTO;
+import br.com.docproc.dto.FiltroDTO;
 import br.com.docproc.entity.TipoArquivo;
 import br.com.docproc.entity.TipoCaptura;
 import br.com.docproc.repository.TipoArquivoRepository;

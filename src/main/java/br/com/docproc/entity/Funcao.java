@@ -10,12 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Permissao extends AbstractEntity<Long> {
+@Getter @Setter
+public class Funcao extends AbstractEntity<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String permissao;
+    private String descricao;
 }
