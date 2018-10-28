@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//nao eh interface pois o projeto esta em java 8 e nao no 10, para ter os metodos gerarExcel e replace implementados
+//Strategy
 public abstract class ProcessadorTexto {
     abstract public List<String> lerArquivo(byte[] conteudo) throws IOException;
 
@@ -52,7 +52,7 @@ public abstract class ProcessadorTexto {
     public Map<String, Integer> processarTexto(List<String> conteudo){
         Map<String, Integer> palavras = new HashMap<>();
         for (String key : conteudo) {
-            if (key.matches("[A-Za-z0-9 ]*")) {
+            if (key.matches("[\nA-Za-z0-9 ]*")) {
                 if (palavras.containsKey(key)) {
                     palavras.put(key, palavras.get(key) + 1);
                 } else {

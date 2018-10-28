@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 
-@Entity
+@Entity(name = "usuario")
 @EqualsAndHashCode
 public class Usuario extends AbstractEntity<Long> {
 

@@ -38,7 +38,7 @@ public class PermissaoServiceImpl extends AbstractEntity<Long> implements Permis
             checkParametros(permissao);
             Usuario admin = usuarioService.getByMatricula(permissao.getUsuario().getMatricula());
             Usuario usuario = usuarioService.getByMatricula(permissao.getUsuario().getMatricula());
-            if(!admin.getFuncao().getId().equals(Constante.ADMIN)){
+            if(!admin.getFuncao().getDescricao().equals("ADMIN")){
                 throw new PermissaoException(Constante.USUARIO_SEM_ACESSO);
             }
 
@@ -72,8 +72,8 @@ public class PermissaoServiceImpl extends AbstractEntity<Long> implements Permis
         if(dto.getAdmin() == null || dto.getAdmin().getMatricula().isEmpty()){
             throw new UsuarioInvalidoException(Constante.ADMIN_NAO_INFORMADO);
         }
-        if(dto.getTipoArquivos() == null && dto.getTipoCapturas() == null
-                || dto.getTipoArquivos().isEmpty() && dto.getTipoCapturas().isEmpty()){
+        if( (dto.getTipoArquivos() == null && dto.getTipoCapturas() == null) ||
+                (dto.getTipoArquivos().isEmpty() && dto.getTipoCapturas().isEmpty())){
             throw new ParametroPermissaoInvalidoException(Constante.CONFIGURACOES_INVALIDAS);
         }
 

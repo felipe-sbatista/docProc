@@ -110,7 +110,7 @@ public class DocprocApplication implements CommandLineRunner {
         List<TipoArquivo> tipoArquivos = new ArrayList<>();
         List<TipoCaptura> tipoCapturas = new ArrayList<>();
         tipoArquivos.add(tipoArquivoRepository.findByFormato("txt"));
-        tipoArquivos.add(tipoArquivoRepository.findByFormato("docx"));
+        tipoArquivos.add(tipoArquivoRepository.findByFormato("pdf"));
         tipoCapturas.add(tipoCapturaRepository.findByFormaCaptura("web"));
 
         u1.setPermissoesArquivo(tipoArquivos);

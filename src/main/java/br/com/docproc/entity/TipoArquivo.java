@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "tipoArquivo")
 @EqualsAndHashCode
 public class TipoArquivo extends AbstractEntity<Long> {
 

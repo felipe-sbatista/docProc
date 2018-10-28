@@ -15,19 +15,20 @@ public class ProcessadorTXT extends ProcessadorTexto {
         BufferedReader buffer = new BufferedReader(new FileReader(file));
 
 
-        List<String> result = new ArrayList<>();
+        List<String> retorno = new ArrayList<>();
         while(buffer.ready()){
             String linha = buffer.readLine();
             String palavrasTemp[] = linha.split(" ");
             for(String palavra : palavrasTemp){
                 if(!palavra.isEmpty()) {
                     String palavraAjustada = replaceCaracter(palavra);
-                    result.add(palavraAjustada);
+                    retorno.add(palavraAjustada);
                 }
             }
         }
+        retorno.removeIf(palavra-> palavra == null || palavra.equals(""));
         file.delete();
-        return result;
+        return retorno;
     }
 
 

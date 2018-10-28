@@ -21,6 +21,7 @@ public class ProcessadorDOCX extends ProcessadorTexto {
             retorno.add(p.getText());
         }
         file.delete();
+        retorno.removeIf(palavra-> palavra == null || palavra.equals(""));
         return retorno;
     }
 

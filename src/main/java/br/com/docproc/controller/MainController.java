@@ -18,6 +18,11 @@ public class MainController {
     @Autowired
     private ArquivoServiceImpl service;
 
+    @PostMapping(value = "/listarArquivos")
+    public ResponseEntity<List<Arquivo>> listarArquivos(@RequestBody FiltroDTO filtro){
+        return service.findByFiltros(filtro);
+    }
+
     @PostMapping(value = "/enviarArquivo")
     public HttpEntity envio(
             @RequestParam("file") MultipartFile file,
@@ -28,11 +33,5 @@ public class MainController {
 
         return service.salvarArquivo(file, tipo, captura, matricula);
     }
-
-    @PostMapping(value = "/listarArquivos")
-    public ResponseEntity<List<Arquivo>> listarArquivos(@RequestBody FiltroDTO filtro){
-        return service.findByFiltros(filtro);
-    }
-
 
 }

@@ -27,9 +27,11 @@ public class ProcessadorPDF extends ProcessadorTexto {
 
         String linhas[] = pdfFileInText.split(" ");
         for (String linha : linhas) {
-            retorno.add(linha);
+            String palavraAjustada = replaceCaracter(linha);
+            retorno.add(palavraAjustada);
         }
         file.delete();
+        retorno.removeIf(palavra-> palavra == null || palavra.equals(""));
         return retorno;
     }
 
